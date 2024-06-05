@@ -7,11 +7,11 @@ Docker Image packaging for openssh. (amd64, arm32v6, arm32v7, arm64v8, i386, ppc
 # Run
 
 ```bash
-docker run --rm snowdreamtech/openssh:latest
+docker run -d -e SSH_ROOT_PASSWORD=123456 -p 22:22 --name openssh snowdreamtech/openssh:latest
 ```
 
 ```bash
-docker run -e TZ=Asia/Shanghai --rm snowdreamtech/openssh:latest
+docker run -d -e TZ=Asia/Shanghai -e SSH_ROOT_PASSWORD=123456 -p 22:22 --name openssh snowdreamtech/openssh:latest
 ```
 
 # Development
