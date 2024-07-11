@@ -23,5 +23,5 @@ fi
 # start sshd
 /usr/sbin/sshd -D
 
-# wait
-wait
+# exec commands
+exec "$@"
