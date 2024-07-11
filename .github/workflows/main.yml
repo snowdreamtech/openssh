@@ -53,9 +53,9 @@ jobs:
             push: true
             tags: |
               snowdreamtech/openssh:latest
-              snowdreamtech/openssh:9.7_p1-r3
+              snowdreamtech/openssh:9.7
               snowdreamtech/openssh:9
               ghcr.io/snowdreamtech/openssh:latest
-              ghcr.io/snowdreamtech/openssh:9.7_p1-r3
+              ghcr.io/snowdreamtech/openssh:9.7
               ghcr.io/snowdreamtech/openssh:9
              
