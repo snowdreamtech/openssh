@@ -9,6 +9,13 @@ fi
 # fastfetch from https://github.com/fastfetch-cli/fastfetch
 fastfetch --pipe false >/etc/motd 2>&1
 
+# openssl rand -base64 33
+if [ -z "${SSH_ROOT_PASSWORD}" ]; then {
+    SSH_ROOT_PASSWORD=$(openssl rand -base64 33)
+    echo "Generate random ssh root password:${SSH_ROOT_PASSWORD}"
+}
+fi
+
 # change the password for root
 echo "root:$SSH_ROOT_PASSWORD" | chpasswd >/dev/null 2>&1
 

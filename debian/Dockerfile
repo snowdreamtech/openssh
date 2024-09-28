@@ -24,7 +24,8 @@ RUN set -eux \
     fastfetch \
     openssh-server=${OPENSSH_VERSION} \ 
     openssh-sftp-server=${OPENSSH_VERSION} \ 
-    openssh-client=${OPENSSH_VERSION} \ 
+    openssh-client=${OPENSSH_VERSION} \
+    && mkdir -p /run/sshd \ 
     && sed -i "s/#PermitRootLogin.*/PermitRootLogin yes/g" /etc/ssh/sshd_config \ 
     && sed -i "s/^#PasswordAuthentication/PasswordAuthentication/g" /etc/ssh/sshd_config \ 
     && sed -i "s/^#PermitEmptyPasswords/PermitEmptyPasswords/g" /etc/ssh/sshd_config \ 
