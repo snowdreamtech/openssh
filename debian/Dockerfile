@@ -14,13 +14,12 @@ LABEL org.opencontainers.image.authors="Snowdream Tech" \
 
 # keep the docker container running
 ENV KEEPALIVE=1 \
-    OPENSSH_VERSION=1:9.8p1-8 \
+    OPENSSH_VERSION=1:9.2p1-2+deb12u3 \
     SSH_ROOT_PASSWORD=
 
 RUN set -eux \
     && apt-get -qqy update  \
     && apt-get -qqy install --no-install-recommends \ 
-    -t trixie \
     fastfetch \
     openssh-server=${OPENSSH_VERSION} \ 
     openssh-sftp-server=${OPENSSH_VERSION} \ 
