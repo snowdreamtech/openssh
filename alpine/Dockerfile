@@ -19,6 +19,7 @@ ENV KEEPALIVE=1 \
 
 RUN apk add --no-cache \
     fastfetch \
+    xauth \
     openssh=${OPENSSH_VERSION} \
     && sed -i "s/#PermitRootLogin.*/PermitRootLogin yes/g" /etc/ssh/sshd_config \ 
     && sed -i "s/^#PasswordAuthentication/PasswordAuthentication/g" /etc/ssh/sshd_config \ 
