@@ -48,6 +48,9 @@ RUN set -eux \
     && sed -i -E "s/#?X11UseLocalhost.*/X11UseLocalhost yes/g" /etc/ssh/sshd_config \
     && sed -i -E "s/#?PermitTTY.*/PermitTTY yes/g" /etc/ssh/sshd_config \
     && sed -i -E "s/#?PrintMotd.*/PrintMotd yes/g" /etc/ssh/sshd_config \  
+    && echo '#!/bin/sh' | tee -a /etc/update-motd.d/20-fastfetch \
+    && echo 'fastfetch --pipe false' | tee -a /etc/update-motd.d/20-fastfetch \
+    && chmod +x /etc/update-motd.d/20-fastfetch \
     && apt-get -qqy --purge autoremove \
     && apt-get -qqy clean \
     && rm -rf /var/lib/apt/lists/* \
