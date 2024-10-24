@@ -47,7 +47,8 @@ RUN set -eux \
     && sed -i -E "s/#?X11DisplayOffset.*/X11DisplayOffset 10/g" /etc/ssh/sshd_config \
     && sed -i -E "s/#?X11UseLocalhost.*/X11UseLocalhost yes/g" /etc/ssh/sshd_config \
     && sed -i -E "s/#?PermitTTY.*/PermitTTY yes/g" /etc/ssh/sshd_config \
-    && sed -i -E "s/#?PrintMotd.*/PrintMotd yes/g" /etc/ssh/sshd_config \  
+    && sed -i -E "s/#?PrintMotd.*/PrintMotd no/g" /etc/ssh/sshd_config \ 
+    && sed -i -E "s/#?PrintLastLog.*/PrintLastLog yes/g" /etc/ssh/sshd_config \
     && echo '#!/bin/sh' | tee -a /etc/update-motd.d/20-fastfetch \
     && echo 'fastfetch --pipe false' | tee -a /etc/update-motd.d/20-fastfetch \
     && chmod +x /etc/update-motd.d/20-fastfetch \
