@@ -43,6 +43,7 @@ RUN apk add --no-cache \
     && sed -i -E "s/#?PermitTTY.*/PermitTTY yes/g" /etc/ssh/sshd_config \
     && sed -i -E "s/#?PrintMotd.*/PrintMotd yes/g" /etc/ssh/sshd_config 
 
+COPY motd.sh /etc/periodic/15min/
 
 EXPOSE 22
 

@@ -6,8 +6,11 @@ if [ ! -f "/etc/ssh/ssh_host_rsa_key" ]; then
   ssh-keygen -A >/dev/null 2>&1
 fi
 
-# fastfetch from https://github.com/fastfetch-cli/fastfetch
-fastfetch --pipe false >/etc/motd 2>&1
+# start cornd
+crond >/dev/null 2>&1
+
+# generate motd
+/etc/periodic/15min/motd.sh >/dev/null 2>&1
 
 # openssl rand -base64 33
 if [ -z "${SSH_ROOT_PASSWORD}" ]; then {
