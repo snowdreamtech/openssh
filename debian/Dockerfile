@@ -1,4 +1,4 @@
-FROM snowdreamtech/debian:12.7.0
+FROM snowdreamtech/debian:12.8.0
 
 # OCI annotations to image
 LABEL org.opencontainers.image.authors="Snowdream Tech" \
@@ -14,14 +14,13 @@ LABEL org.opencontainers.image.authors="Snowdream Tech" \
 
 # keep the docker container running
 ENV KEEPALIVE=1 \
-    OPENSSH_VERSION=1:9.9p1-3 \
+    OPENSSH_VERSION=1:9.2p1-2+deb12u3 \
     SSH_ROOT_PASSWORD=
 
 RUN set -eux \
     && apt-get -qqy update  \
     && apt-get -qqy install --no-install-recommends \ 
-    -t trixie \
-    fastfetch \
+    # fastfetch \
     xauth \
     openssh-server=${OPENSSH_VERSION} \ 
     openssh-sftp-server=${OPENSSH_VERSION} \ 
@@ -49,9 +48,9 @@ RUN set -eux \
     && sed -i -E "s/#?PermitTTY.*/PermitTTY yes/g" /etc/ssh/sshd_config \
     && sed -i -E "s/#?PrintMotd.*/PrintMotd no/g" /etc/ssh/sshd_config \ 
     && sed -i -E "s/#?PrintLastLog.*/PrintLastLog yes/g" /etc/ssh/sshd_config \
-    && echo '#!/bin/sh' | tee /etc/update-motd.d/20-fastfetch \
-    && echo 'fastfetch --pipe false' | tee -a /etc/update-motd.d/20-fastfetch \
-    && chmod +x /etc/update-motd.d/20-fastfetch \
+    # && echo '#!/bin/sh' | tee /etc/update-motd.d/20-fastfetch \
+    # && echo 'fastfetch --pipe false' | tee -a /etc/update-motd.d/20-fastfetch \
+    # && chmod +x /etc/update-motd.d/20-fastfetch \
     && apt-get -qqy --purge autoremove \
     && apt-get -qqy clean \
     && rm -rf /var/lib/apt/lists/* \
