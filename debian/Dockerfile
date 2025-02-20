@@ -14,7 +14,7 @@ LABEL org.opencontainers.image.authors="Snowdream Tech" \
 
 # keep the docker container running
 ENV KEEPALIVE=1 \
-    OPENSSH_VERSION=1:9.2p1-2+deb12u3 \
+    OPENSSH_VERSION=1:9.2p1-2+deb12u5 \
     SSH_ROOT_PASSWORD=
 
 ARG GID=1000 \
