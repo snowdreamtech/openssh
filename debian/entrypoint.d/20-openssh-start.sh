@@ -9,7 +9,7 @@ fi
 # openssl rand -base64 33
 if [ -z "${SSH_ROOT_PASSWORD}" ]; then {
     SSH_ROOT_PASSWORD=$(openssl rand -base64 33)
-    echo "Generate random ssh root password:${SSH_ROOT_PASSWORD}"
+    echo "Generate random ssh root password:  ${SSH_ROOT_PASSWORD}"
 }
 fi
 
