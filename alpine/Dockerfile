@@ -49,7 +49,7 @@ ENV KEEPALIVE=${KEEPALIVE} \
     WORKDIR=${WORKDIR} 
 
 ENV OPENSSH_VERSION=10.0_p1-r9 \
-    SSH_ROOT_PASSWORD=
+    SSH_ROOT_CRED=
 
 # Create a user with PUID and PGID
 RUN if [ "${USER}" != "root" ] && [ ! -d "/home/${USER}" ] && [ "${PUID}" -ne 0 ] && [ "${PGID}" -ne 0 ]; then \

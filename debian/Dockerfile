@@ -51,7 +51,7 @@ ENV DEBIAN_FRONTEND=${DEBIAN_FRONTEND} \
     WORKDIR=${WORKDIR} 
 
 ENV OPENSSH_VERSION=1:10.0p1-7 \
-    SSH_ROOT_PASSWORD=
+    SSH_ROOT_CRED=
 
 # Create a user with PUID and PGID
 RUN if [ "${USER}" != "root" ] && [ ! -d "/home/${USER}" ] && [ "${PUID}" -ne 0 ] && [ "${PGID}" -ne 0 ]; then \
