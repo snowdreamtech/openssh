@@ -9,7 +9,7 @@ LABEL org.opencontainers.image.authors="Snowdream Tech" \
     org.opencontainers.image.licenses="MIT" \
     org.opencontainers.image.source="https://github.com/snowdreamtech/openssh" \
     org.opencontainers.image.vendor="Snowdream Tech" \
-    org.opencontainers.image.version="9.9" \
+    org.opencontainers.image.version="10.0" \
     org.opencontainers.image.url="https://github.com/snowdreamtech/openssh"
     
 # Switch to the user
@@ -48,7 +48,7 @@ ENV KEEPALIVE=${KEEPALIVE} \
     USER=${USER} \
     WORKDIR=${WORKDIR} 
 
-ENV OPENSSH_VERSION=9.9_p2-r0 \
+ENV OPENSSH_VERSION=10.0_p1-r9 \
     SSH_ROOT_PASSWORD=
 
 # Create a user with PUID and PGID
