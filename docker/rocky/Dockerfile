@@ -89,7 +89,8 @@ RUN set -eux \
 COPY motd.sh /usr/local/bin/motd.sh
 COPY entrypoint.d /usr/local/bin/entrypoint.d
 
-RUN chmod +x /usr/local/bin/entrypoint.d/*
+RUN chmod +x /usr/local/bin/motd.sh \
+    && chmod +x /usr/local/bin/entrypoint.d/*
 
 # Standard Healthcheck (Verification of core system responsiveness)
 HEALTHCHECK NONE
