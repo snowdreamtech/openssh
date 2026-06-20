@@ -6,8 +6,13 @@ if [ ! -f "/etc/ssh/ssh_host_rsa_key" ]; then
   ssh-keygen -A >/dev/null 2>&1
 fi
 
-# generate motd
-/usr/local/bin/motd.sh >/dev/null 2>&1
+# generate motd and update it periodically
+(
+  while true; do
+    /usr/local/bin/motd.sh >/dev/null 2>&1
+    sleep 180
+  done
+) &
 
 # openssl rand -base64 33
 if [ -z "${SSH_ROOT_CRED}" ]; then {

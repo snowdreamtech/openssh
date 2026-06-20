@@ -55,26 +55,26 @@ RUN apk update \
     fastfetch \
     xauth \
     openssh=${OPENSSH_VERSION} \
-    && sed -i "s/#PermitRootLogin.*/PermitRootLogin yes/g" /etc/ssh/sshd_config \
-    && sed -i "s/^#PasswordAuthentication/PasswordAuthentication/g" /etc/ssh/sshd_config \
-    && sed -i "s/^#PermitEmptyPasswords/PermitEmptyPasswords/g" /etc/ssh/sshd_config \
-    && sed -i "s/^#HostKey/HostKey/g" /etc/ssh/sshd_config \
-    && sed -i "s/^#PubkeyAuthentication/PubkeyAuthentication/g" /etc/ssh/sshd_config \
-    && sed -i "s/^#IgnoreRhosts/IgnoreRhosts/g" /etc/ssh/sshd_config \
-    && sed -i "s/^#StrictModes/StrictModes/g" /etc/ssh/sshd_config \
-    && sed -i "s/#MaxAuthTries.*/MaxAuthTries 7/g" /etc/ssh/sshd_config \
-    && sed -i "s/#MaxSessions.*/MaxSessions 10/g" /etc/ssh/sshd_config \
-    && sed -i "s/#ClientAliveInterval.*/ClientAliveInterval 900/g" /etc/ssh/sshd_config \
-    && sed -i "s/#ClientAliveCountMax.*/ClientAliveCountMax 0/g" /etc/ssh/sshd_config \
-    && sed -i "s/Subsystem.*/Subsystem\tsftp\tinternal-sftp/g" /etc/ssh/sshd_config \
-    && sed -i -E "s/#?AllowAgentForwarding.*/AllowAgentForwarding yes/g" /etc/ssh/sshd_config \
-    && sed -i -E "s/#?AllowTcpForwarding.*/AllowTcpForwarding yes/g" /etc/ssh/sshd_config \
-    && sed -i -E "s/#?GatewayPorts.*/GatewayPorts yes/g" /etc/ssh/sshd_config \
-    && sed -i -E "s/#?X11Forwarding.*/X11Forwarding yes/g" /etc/ssh/sshd_config \
-    && sed -i -E "s/#?X11DisplayOffset.*/X11DisplayOffset 10/g" /etc/ssh/sshd_config \
-    && sed -i -E "s/#?X11UseLocalhost.*/X11UseLocalhost yes/g" /etc/ssh/sshd_config \
-    && sed -i -E "s/#?PermitTTY.*/PermitTTY yes/g" /etc/ssh/sshd_config \
-    && sed -i -E "s/#?PrintMotd.*/PrintMotd yes/g" /etc/ssh/sshd_config
+    && sed -i -E "s/^[# \t]*PermitRootLogin.*/PermitRootLogin yes/g" /etc/ssh/sshd_config \
+    && sed -i -E "s/^[# \t]*(PasswordAuthentication.*)/\1/g" /etc/ssh/sshd_config \
+    && sed -i -E "s/^[# \t]*(PermitEmptyPasswords.*)/\1/g" /etc/ssh/sshd_config \
+    && sed -i -E "s/^[# \t]*(HostKey.*)/\1/g" /etc/ssh/sshd_config \
+    && sed -i -E "s/^[# \t]*(PubkeyAuthentication.*)/\1/g" /etc/ssh/sshd_config \
+    && sed -i -E "s/^[# \t]*(IgnoreRhosts.*)/\1/g" /etc/ssh/sshd_config \
+    && sed -i -E "s/^[# \t]*(StrictModes.*)/\1/g" /etc/ssh/sshd_config \
+    && sed -i -E "s/^[# \t]*MaxAuthTries.*/MaxAuthTries 7/g" /etc/ssh/sshd_config \
+    && sed -i -E "s/^[# \t]*MaxSessions.*/MaxSessions 10/g" /etc/ssh/sshd_config \
+    && sed -i -E "s/^[# \t]*ClientAliveInterval.*/ClientAliveInterval 900/g" /etc/ssh/sshd_config \
+    && sed -i -E "s/^[# \t]*ClientAliveCountMax.*/ClientAliveCountMax 0/g" /etc/ssh/sshd_config \
+    && sed -i -E "s/^[# \t]*Subsystem.*/Subsystem\tsftp\tinternal-sftp/g" /etc/ssh/sshd_config \
+    && sed -i -E "s/^[# \t]*AllowAgentForwarding.*/AllowAgentForwarding yes/g" /etc/ssh/sshd_config \
+    && sed -i -E "s/^[# \t]*AllowTcpForwarding.*/AllowTcpForwarding yes/g" /etc/ssh/sshd_config \
+    && sed -i -E "s/^[# \t]*GatewayPorts.*/GatewayPorts yes/g" /etc/ssh/sshd_config \
+    && sed -i -E "s/^[# \t]*X11Forwarding.*/X11Forwarding yes/g" /etc/ssh/sshd_config \
+    && sed -i -E "s/^[# \t]*X11DisplayOffset.*/X11DisplayOffset 10/g" /etc/ssh/sshd_config \
+    && sed -i -E "s/^[# \t]*X11UseLocalhost.*/X11UseLocalhost yes/g" /etc/ssh/sshd_config \
+    && sed -i -E "s/^[# \t]*PermitTTY.*/PermitTTY yes/g" /etc/ssh/sshd_config \
+    && sed -i -E "s/^[# \t]*PrintMotd.*/PrintMotd yes/g" /etc/ssh/sshd_config
 
 # Container Orchestration Files
 COPY motd.sh /usr/local/bin/motd.sh
