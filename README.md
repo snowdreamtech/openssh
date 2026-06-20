@@ -87,7 +87,7 @@ docker run -d \
   snowdreamtech/openssh:debian
 ```
 
-**Supported Architectures**: i386, amd64, arm32v5, arm32v7, arm64, mips64le, ppc64le, s390x
+**Supported Architectures**: 386, amd64, arm/v5, arm/v7, arm64, riscv64, ppc64le, s390x
 
 ### Alpine
 
@@ -102,7 +102,7 @@ docker run -d \
   snowdreamtech/openssh:alpine
 ```
 
-**Supported Architectures**: i386, amd64, arm32v6, arm32v7, arm64, ppc64le, riscv64, s390x
+**Supported Architectures**: 386, amd64, arm/v6, arm/v7, arm64, ppc64le, riscv64, s390x
 
 ### Rocky
 
@@ -117,7 +117,7 @@ docker run -d \
   snowdreamtech/openssh:rocky
 ```
 
-**Supported Architectures**: i386, amd64, arm32v5, arm32v7, arm64, mips64le, ppc64le, s390x
+**Supported Architectures**: amd64, arm64, ppc64le, s390x
 
 ## Environment Variables
 
@@ -164,13 +164,13 @@ This format allows:
 docker buildx create --use --name build --node build --driver-opt network=host
 
 # Build Debian variant
-docker buildx build -t snowdreamtech/openssh:debian --platform=linux/386,linux/amd64,linux/arm/v5,linux/arm/v7,linux/arm64,linux/mips64le,linux/ppc64le,linux/s390x ./docker/debian/
+docker buildx build -t snowdreamtech/openssh:debian --platform=linux/386,linux/amd64,linux/arm/v5,linux/arm/v7,linux/arm64,linux/riscv64,linux/ppc64le,linux/s390x ./docker/debian/
 
 # Build Alpine variant
 docker buildx build -t snowdreamtech/openssh:alpine --platform=linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/ppc64le,linux/riscv64,linux/s390x ./docker/alpine/
 
 # Build Rocky variant
-docker buildx build -t snowdreamtech/openssh:rocky --platform=linux/386,linux/amd64,linux/arm/v5,linux/arm/v7,linux/arm64,linux/mips64le,linux/ppc64le,linux/s390x ./docker/rocky/
+docker buildx build -t snowdreamtech/openssh:rocky --platform=linux/amd64,linux/arm64,linux/ppc64le,linux/s390x ./docker/rocky/
 ```
 
 ## Reference

@@ -93,7 +93,7 @@ docker run -d \
   snowdreamtech/openssh:debian
 ```
 
-**支持的架构**: i386, amd64, arm32v5, arm32v7, arm64, mips64le, ppc64le, s390x
+**支持的架构**: 386, amd64, arm/v5, arm/v7, arm64, riscv64, ppc64le, s390x
 
 ### Alpine
 
@@ -108,7 +108,7 @@ docker run -d \
   snowdreamtech/openssh:alpine
 ```
 
-**支持的架构**: i386, amd64, arm32v6, arm32v7, arm64, ppc64le, riscv64, s390x
+**支持的架构**: 386, amd64, arm/v6, arm/v7, arm64, ppc64le, riscv64, s390x
 
 ### Rocky
 
@@ -123,7 +123,7 @@ docker run -d \
   snowdreamtech/openssh:rocky
 ```
 
-**支持的架构**: i386, amd64, arm32v5, arm32v7, arm64, mips64le, ppc64le, s390x
+**支持的架构**: amd64, arm64, ppc64le, s390x
 
 ## 环境变量
 
@@ -170,13 +170,13 @@ docker run -d \
 docker buildx create --use --name build --node build --driver-opt network=host
 
 # 构建 Debian 分支
-docker buildx build -t snowdreamtech/openssh:debian --platform=linux/386,linux/amd64,linux/arm/v5,linux/arm/v7,linux/arm64,linux/mips64le,linux/ppc64le,linux/s390x ./docker/debian/
+docker buildx build -t snowdreamtech/openssh:debian --platform=linux/386,linux/amd64,linux/arm/v5,linux/arm/v7,linux/arm64,linux/riscv64,linux/ppc64le,linux/s390x ./docker/debian/
 
 # 构建 Alpine 分支
 docker buildx build -t snowdreamtech/openssh:alpine --platform=linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/ppc64le,linux/riscv64,linux/s390x ./docker/alpine/
 
 # 构建 Rocky 分支
-docker buildx build -t snowdreamtech/openssh:rocky --platform=linux/386,linux/amd64,linux/arm/v5,linux/arm/v7,linux/arm64,linux/mips64le,linux/ppc64le,linux/s390x ./docker/rocky/
+docker buildx build -t snowdreamtech/openssh:rocky --platform=linux/amd64,linux/arm64,linux/ppc64le,linux/s390x ./docker/rocky/
 ```
 
 ## 参考链接
