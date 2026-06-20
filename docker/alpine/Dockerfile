@@ -22,7 +22,7 @@ ARG BUILDTIME \
 # Standard OCI Metadata (https://github.com/opencontainers/image-spec)
 LABEL org.opencontainers.image.authors="Snowdream Tech" \
     org.opencontainers.image.title="OpenSSH Image Based On Alpine" \
-    org.opencontainers.image.description="Docker Images for OpenSSH on Alpine. (i386, amd64, arm32v6, arm32v7, arm64, ppc64le, riscv64, s390x)" \
+    org.opencontainers.image.description="Docker Images for OpenSSH on Alpine. (386, amd64, arm/v6, arm/v7, arm64, ppc64le, riscv64, s390x)" \
     org.opencontainers.image.documentation="https://hub.docker.com/r/snowdreamtech/openssh" \
     org.opencontainers.image.base.name="snowdreamtech/alpine:3.24.0" \
     org.opencontainers.image.licenses="MIT" \

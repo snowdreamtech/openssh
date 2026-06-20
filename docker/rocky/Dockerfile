@@ -22,7 +22,7 @@ ARG BUILDTIME \
 # Standard OCI Metadata (https://github.com/opencontainers/image-spec)
 LABEL org.opencontainers.image.authors="Snowdream Tech" \
     org.opencontainers.image.title="OpenSSH Image Based On Rocky" \
-    org.opencontainers.image.description="Docker Images for OpenSSH on Rocky. (i386, amd64, arm32v5, arm32v7, arm64, mips64le, ppc64le, s390x)" \
+    org.opencontainers.image.description="Docker Images for OpenSSH on Rocky. (amd64, arm64, ppc64le, s390x)" \
     org.opencontainers.image.documentation="https://hub.docker.com/r/snowdreamtech/openssh" \
     org.opencontainers.image.base.name="snowdreamtech/rocky:10.2.0" \
     org.opencontainers.image.licenses="MIT" \
