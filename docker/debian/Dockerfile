@@ -100,6 +100,7 @@ RUN chmod +x /usr/local/bin/entrypoint.d/*
 HEALTHCHECK NONE
 
 # Process Execution
+EXPOSE 22
 USER root
 WORKDIR /root
 ENTRYPOINT ["docker-entrypoint.sh"]
