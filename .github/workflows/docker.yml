@@ -484,6 +484,8 @@ jobs:
                 printf '  ✓ User context: ' && id -un && \
                 printf '  ✓ Package manager: ' && \
                 ${pkg_check} && echo 'functional' && \
+                printf '  ✓ OpenSSH Version: ' && ssh -V 2>&1 && \
+                printf '  ✓ sshd Config Test: ' && sshd -t && \
                 echo '  ✓ All checks passed'
               "; then
               return 0
