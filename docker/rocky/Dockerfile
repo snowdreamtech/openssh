@@ -56,8 +56,8 @@ RUN set -eux \
     && dnf -y --allowerasing install \
     fastfetch \
     xauth \
-    openssh-server-${OPENSSH_VERSION} \
-    openssh-clients-${OPENSSH_VERSION} \
+    openssh-server=${OPENSSH_VERSION} \
+    openssh-clients=${OPENSSH_VERSION} \
     && ssh-keygen -A \
     && sed -i -E "s/^[# \t]*PermitRootLogin.*/PermitRootLogin yes/g" /etc/ssh/sshd_config \
     && sed -i -E "s/^[# \t]*(PasswordAuthentication.*)/\1/g" /etc/ssh/sshd_config \
