@@ -48,9 +48,9 @@ ENV KEEPALIVE=${KEEPALIVE} \
 
 # Additional tooling and configuration for Base image
 RUN set -eux \
-    && dnf -y --allowerasing update \
-    && dnf -y --allowerasing install epel-release \
-    && dnf -y --allowerasing install \
+    && dnf -y --allowerasing --setopt=*.skip_if_unavailable=true update \
+    && dnf -y --allowerasing --setopt=*.skip_if_unavailable=true install epel-release \
+    && dnf -y --allowerasing --setopt=*.skip_if_unavailable=true install \
     fastfetch \
     xauth \
     openssh-server-${OPENSSH_VERSION} \
