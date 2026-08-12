@@ -10,4 +10,3 @@
 * **docker:** ensure explicit permissions for client ssh keys generation ([f2b50df](https://github.com/snowdreamtech/openssh/commit/f2b50dfdc0f41dab96fc2734653a2c1a36c484c3))
 * **docker:** explicitly add executable permissions for motd script in alpine and rocky ([1bd73f2](https://github.com/snowdreamtech/openssh/commit/1bd73f21cc8b5b8336ed57498b47f2eb72de2628))
 * **docker:** remove redundant client ssh keys generation from entrypoint ([24c2b71](https://github.com/snowdreamtech/openssh/commit/24c2b71eef260edccfa2b35a855994361a0f95fd))
-

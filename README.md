@@ -30,6 +30,7 @@ docker run -d   --name=openssh   -e TZ=Asia/Shanghai   -p 22:22   -v ~/.ssh/id_r
 ```
 
 You can then log in using:
+
 ```bash
 ssh root@localhost -p 22
 ```
@@ -72,6 +73,7 @@ services:
       - ./data:/data
     restart: unless-stopped
 ```
+
 ## Distribution Variants
 
 ### Debian (Default)
@@ -87,7 +89,9 @@ docker run -d \
   snowdreamtech/openssh:debian
 ```
 
-**Supported Architectures**: 386, amd64, arm/v5, arm/v7, arm64, riscv64, ppc64le, s390x
+**Supported Architectures**: amd64, arm32v7, arm64, ppc64le, riscv64, s390x
+
+**Base Image**: `snowdreamtech/debian:13.6.0`
 
 ### Alpine
 
@@ -104,6 +108,8 @@ docker run -d \
 
 **Supported Architectures**: 386, amd64, arm/v6, arm/v7, arm64, ppc64le, riscv64, s390x
 
+**Base Image**: `snowdreamtech/alpine:3.24.1`
+
 ### Rocky
 
 Enterprise-focused variant based on Rocky Linux, ideal for production environments requiring RHEL compatibility.
@@ -118,6 +124,53 @@ docker run -d \
 ```
 
 **Supported Architectures**: amd64, arm64, ppc64le, s390x
+
+**Base Image**: `snowdreamtech/rocky:10.2.0`
+
+## Build Instructions
+
+### Single Architecture Build
+
+```bash
+# Build Debian variant
+docker build -t snowdreamtech/base:debian ./docker/debian/
+
+# Build Alpine variant
+docker build -t snowdreamtech/base:alpine ./docker/alpine/
+
+# Build Rocky variant
+docker build -t snowdreamtech/base:rocky ./docker/rocky/
+```
+
+### Multi-Architecture Build
+
+Build images for multiple architectures using `docker buildx`:
+
+```bash
+# Create and use a buildx builder
+docker buildx create --use --name build --node build --driver-opt network=host
+
+# Build Debian for multiple architectures
+docker buildx build \
+  --platform=linux/386,linux/amd64,linux/arm/v5,linux/arm/v7,linux/arm64,linux/ppc64le,linux/riscv64,linux/s390x \
+  -t snowdreamtech/base:debian \
+  ./docker/debian/ \
+  --push
+
+# Build Alpine for multiple architectures
+docker buildx build \
+  --platform=linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/ppc64le,linux/riscv64,linux/s390x \
+  -t snowdreamtech/base:alpine \
+  ./docker/alpine/ \
+  --push
+
+# Build Rocky for multiple architectures
+docker buildx build \
+  --platform=linux/amd64,linux/arm64,linux/ppc64le,linux/s390x \
+  -t snowdreamtech/base:rocky \
+  ./docker/rocky/ \
+  --push
+```
 
 ## Environment Variables
 
@@ -148,15 +201,70 @@ Images follow semantic versioning with the format: `{major}.{minor}.{patch}-{var
 
 Examples:
 
-- `snowdreamtech/openssh:10.0.1-debian`
-- `snowdreamtech/openssh:10.3.1-alpine`
-- `snowdreamtech/openssh:9.9.1-rocky`
+- `snowdreamtech/openssh:10.0.2-debian`
+- `snowdreamtech/openssh:10.3.2-alpine`
+- `snowdreamtech/openssh:9.9.2-rocky`
 
 This format allows:
 
-- **Full version pinning**: `10.0.1-debian` (exact version)
+- **Full version pinning**: `10.0.2-debian` (exact version)
 - **Variant latest tag**: `latest-debian` (tracks most recent release for Debian)
 - **Global latest tag**: `latest` (tracks most recent release, defaults to Debian)
+
+## Architecture Support
+
+Each distribution variant supports multiple CPU architectures for deployment across diverse hardware platforms:
+
+| Variant | Architectures |
+|---------|---------------|
+| **Debian** | amd64, arm32v7, arm64, ppc64le, riscv64, s390x |
+| **Alpine** | i386, amd64, arm32v6, arm32v7, arm64, ppc64le, riscv64, s390x |
+| **Rocky** | amd64, arm64, ppc64le, s390x |
+
+Docker automatically selects the appropriate architecture for your platform when pulling images.
+
+## Entrypoint System
+
+The base template includes a flexible entrypoint system that executes custom initialization scripts before starting your application.
+
+### How It Works
+
+1. The `docker-entrypoint.sh` script runs at container startup
+2. It executes all executable scripts in `/usr/local/bin/entrypoint.d/` in lexical order
+3. Each script receives the container's command-line arguments
+4. If any script fails, the container stops (fail-fast behavior)
+
+### Adding Custom Initialization
+
+Create custom initialization scripts in your derived Dockerfile:
+
+```dockerfile
+FROM snowdreamtech/base:debian
+
+# Add your custom initialization script
+COPY my-init.sh /usr/local/bin/entrypoint.d/20-my-init.sh
+RUN chmod +x /usr/local/bin/entrypoint.d/20-my-init.sh
+
+# Your application setup
+COPY app /app
+CMD ["/app/start.sh"]
+```
+
+### Debug Mode
+
+Enable debug output to troubleshoot entrypoint execution:
+
+```bash
+docker run -e DEBUG=true snowdreamtech/base:debian
+```
+
+Output example:
+
+```
+→ [ENTRYPOINT] Executing all scripts in /usr/local/bin/entrypoint.d
+→ Running /usr/local/bin/entrypoint.d/10-base-init.sh
+→ [ENTRYPOINT] Done.
+```
 
 ## Development
 
@@ -164,7 +272,7 @@ This format allows:
 docker buildx create --use --name build --node build --driver-opt network=host
 
 # Build Debian variant
-docker buildx build -t snowdreamtech/openssh:debian --platform=linux/386,linux/amd64,linux/arm/v5,linux/arm/v7,linux/arm64,linux/riscv64,linux/ppc64le,linux/s390x ./docker/debian/
+docker buildx build -t snowdreamtech/openssh:debian --platform=linux/amd64,linux/arm/v7,linux/arm64,linux/ppc64le,linux/riscv64,linux/s390x ./docker/debian/
 
 # Build Alpine variant
 docker buildx build -t snowdreamtech/openssh:alpine --platform=linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/ppc64le,linux/riscv64,linux/s390x ./docker/alpine/

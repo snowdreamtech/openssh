@@ -93,7 +93,9 @@ docker run -d \
   snowdreamtech/openssh:debian
 ```
 
-**支持的架构**: 386, amd64, arm/v5, arm/v7, arm64, riscv64, ppc64le, s390x
+**支持的架构**：amd64、arm32v7、arm64、ppc64le、riscv64、s390x
+
+**基础镜像**：`snowdreamtech/debian:13.6.0`
 
 ### Alpine
 
@@ -108,7 +110,9 @@ docker run -d \
   snowdreamtech/openssh:alpine
 ```
 
-**支持的架构**: 386, amd64, arm/v6, arm/v7, arm64, ppc64le, riscv64, s390x
+**支持的架构**：i386、amd64、arm32v6、arm32v7、arm64、ppc64le、riscv64、s390x
+
+**基础镜像**：`snowdreamtech/alpine:3.24.1`
 
 ### Rocky
 
@@ -123,7 +127,54 @@ docker run -d \
   snowdreamtech/openssh:rocky
 ```
 
-**支持的架构**: amd64, arm64, ppc64le, s390x
+**支持的架构**：amd64、arm64、ppc64le、s390x
+
+**基础镜像**：`snowdreamtech/rocky:10.2.0`
+
+## 构建说明
+
+### 单架构构建
+
+```bash
+# 构建 Debian 变体
+docker build -t snowdreamtech/openssh:debian ./docker/debian/
+
+# 构建 Alpine 变体
+docker build -t snowdreamtech/openssh:alpine ./docker/alpine/
+
+# 构建 Rocky 变体
+docker build -t snowdreamtech/openssh:rocky ./docker/rocky/
+```
+
+### 多架构构建
+
+使用 `docker buildx` 为多个架构构建镜像：
+
+```bash
+# 创建并使用 buildx 构建器
+docker buildx create --use --name build --node build --driver-opt network=host
+
+# 为多个架构构建 Debian
+docker buildx build \
+  --platform=linux/amd64,linux/arm/v7,linux/arm64,linux/ppc64le,linux/riscv64,linux/s390x \
+  -t snowdreamtech/openssh:debian \
+  ./docker/debian/ \
+  --push
+
+# 为多个架构构建 Alpine
+docker buildx build \
+  --platform=linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/ppc64le,linux/riscv64,linux/s390x \
+  -t snowdreamtech/openssh:alpine \
+  ./docker/alpine/ \
+  --push
+
+# 为多个架构构建 Rocky
+docker buildx build \
+  --platform=linux/amd64,linux/arm64,linux/ppc64le,linux/s390x \
+  -t snowdreamtech/openssh:rocky \
+  ./docker/rocky/ \
+  --push
+```
 
 ## 环境变量
 
@@ -154,15 +205,70 @@ docker run -d \
 
 示例：
 
-- `snowdreamtech/openssh:10.0.1-debian`
-- `snowdreamtech/openssh:10.3.1-alpine`
-- `snowdreamtech/openssh:9.9.1-rocky`
+- `snowdreamtech/openssh:10.0.2-debian`
+- `snowdreamtech/openssh:10.3.2-alpine`
+- `snowdreamtech/openssh:9.9.2-rocky`
 
 该格式支持：
 
-- **精确版本锁定**: `10.0.1-debian` (固定版本)
-- **特定分支的最新标签**: `latest-debian` (跟踪 Debian 分支的最新发布)
-- **全局最新标签**: `latest` (跟踪最新发布，默认指向 Debian 分支)
+- **精确版本锁定**：`10.0.2-debian`（固定版本）
+- **特定分支的最新标签**：`latest-debian`（跟踪 Debian 分支的最新发布）
+- **全局最新标签**：`latest`（跟踪最新发布，默认指向 Debian 分支）
+
+## 架构支持
+
+每个发行版变体都支持多个 CPU 架构，可在多样化的硬件平台上部署：
+
+| 变体 | 架构 |
+|---------|---------------|
+| **Debian** | amd64、arm32v7、arm64、ppc64le、riscv64、s390x |
+| **Alpine** | i386、amd64、arm32v6、arm32v7、arm64、ppc64le、riscv64、s390x |
+| **Rocky** | amd64、arm64、ppc64le、s390x |
+
+Docker 在拉取镜像时会自动为您的平台选择适当的架构。
+
+## 入口点系统
+
+基础模板包含一个灵活的入口点系统，在启动应用程序之前执行自定义初始化脚本。
+
+### 工作原理
+
+1. `docker-entrypoint.sh` 脚本在容器启动时运行
+2. 它按字典顺序执行 `/usr/local/bin/entrypoint.d/` 中的所有可执行脚本
+3. 每个脚本都接收容器的命令行参数
+4. 如果任何脚本失败，容器将停止（快速失败行为）
+
+### 添加自定义初始化
+
+在派生的 Dockerfile 中创建自定义初始化脚本：
+
+```dockerfile
+FROM snowdreamtech/base:debian
+
+# 添加您的自定义初始化脚本
+COPY my-init.sh /usr/local/bin/entrypoint.d/20-my-init.sh
+RUN chmod +x /usr/local/bin/entrypoint.d/20-my-init.sh
+
+# 您的应用程序设置
+COPY app /app
+CMD ["/app/start.sh"]
+```
+
+### 调试模式
+
+启用调试输出以排查入口点执行问题：
+
+```bash
+docker run -e DEBUG=true snowdreamtech/base:debian
+```
+
+输出示例：
+
+```
+→ [ENTRYPOINT] Executing all scripts in /usr/local/bin/entrypoint.d
+→ Running /usr/local/bin/entrypoint.d/10-base-init.sh
+→ [ENTRYPOINT] Done.
+```
 
 ## 开发
 
@@ -170,7 +276,7 @@ docker run -d \
 docker buildx create --use --name build --node build --driver-opt network=host
 
 # 构建 Debian 分支
-docker buildx build -t snowdreamtech/openssh:debian --platform=linux/386,linux/amd64,linux/arm/v5,linux/arm/v7,linux/arm64,linux/riscv64,linux/ppc64le,linux/s390x ./docker/debian/
+docker buildx build -t snowdreamtech/openssh:debian --platform=linux/amd64,linux/arm/v7,linux/arm64,linux/ppc64le,linux/riscv64,linux/s390x ./docker/debian/
 
 # 构建 Alpine 分支
 docker buildx build -t snowdreamtech/openssh:alpine --platform=linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/ppc64le,linux/riscv64,linux/s390x ./docker/alpine/
