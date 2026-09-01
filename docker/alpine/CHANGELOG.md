@@ -1,5 +1,12 @@
 # Changelog
 
+## [10.3.2](https://github.com/snowdreamtech/openssh/compare/alpine-v10.3.2...alpine-v10.3.2) (2026-09-01)
+
+
+### 🐛 Bug Fixes
+
+* **alpine:** update openssh package version to 10.3_p1-r1 ([101d853](https://github.com/snowdreamtech/openssh/commit/101d8533d378b9f177bd41842d2c9d3f80c0a81f))
+
 ## [10.3.2](https://github.com/snowdreamtech/openssh/compare/alpine-v10.3.1...alpine-v10.3.2) (2026-08-12)
 
 
