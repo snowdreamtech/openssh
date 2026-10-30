@@ -1,37 +1,19 @@
 # Changelog
 
-## [3.24.1](https://github.com/snowdreamtech/base/compare/alpine-v3.24.1...alpine-v3.24.1) (2026-10-28)
+## [10.3.2](https://github.com/snowdreamtech/openssh/compare/alpine-v10.3.2...alpine-v10.3.2) (2026-09-01)
 
 
-### 🚀 Features
+### 🐛 Bug Fixes
 
-* initial release of snowdreamtech base docker images powered by unirtm ([25f55c8](https://github.com/snowdreamtech/base/commit/25f55c84e8fba977d226739e9871d61e1428fdeb))
+* **alpine:** update openssh package version to 10.3_p1-r1 ([101d853](https://github.com/snowdreamtech/openssh/commit/101d8533d378b9f177bd41842d2c9d3f80c0a81f))
 
-## [3.24.0](https://github.com/snowdreamtech/base/compare/alpine-v3.24.0...alpine-v3.24.0) (2026-07-03)
-
-
-### ♻️ Miscellaneous Chores
-
-* add 0-git-keep.sh to prevent empty entrypoint.d directories ([ce77247](https://github.com/snowdreamtech/base/commit/ce77247762becc1edf85ec7b57747d3f3127044a))
-
-## [3.23.4](https://github.com/snowdreamtech/base/compare/alpine-v3.23.4...alpine-v3.23.4) (2026-04-29)
+## [10.3.1](https://github.com/snowdreamtech/openssh/compare/alpine-v10.3.1...alpine-v10.3.1) (2026-06-20)
 
 
-### 🛠 Refactoring
+### 🐛 Bug Fixes
 
-* **docker:** align Dockerfiles with base image structure ([232574f](https://github.com/snowdreamtech/base/commit/232574fed8418f8c7f257d001e951361dfa467a0))
-* remove redundant docker-entrypoint.sh files ([87c576b](https://github.com/snowdreamtech/base/commit/87c576b27731ad11c5bc0ebc661e07c5a09ff1c1))
-* reorganize distribution variants into docker directory ([67a8c91](https://github.com/snowdreamtech/base/commit/67a8c911e21801bf12b3e83d02e22f3b3f59a2ba))
-
-
-### 📖 Documentation
-
-* add detailed comments to entrypoint initialization scripts ([f42cbaa](https://github.com/snowdreamtech/base/commit/f42cbaab6edfbc5c38c2a636dfd8651fea900940))
-
-
-### ♻️ Miscellaneous Chores
-
-* **main:** release 0.14.0 ([043d2a4](https://github.com/snowdreamtech/base/commit/043d2a4202505e42c645e899c6731f5fb8f52c8e))
-* release 0.6.1 ([f6fc042](https://github.com/snowdreamtech/base/commit/f6fc042cad7d1c4991a20657655bc4b6b339d0d9))
-* release 0.7.1 ([5535492](https://github.com/snowdreamtech/base/commit/5535492160f3525dff06ff9f0c6d78147467bed3))
-* **release:** v0.4.0 - Fix Dependabot docker-compose detection ([e91f7d8](https://github.com/snowdreamtech/base/commit/e91f7d882f3c7b23260f4da02f0e5e53d6399968))
+* **docker:** add missing EXPOSE 22 instruction to all dockerfiles ([746e55a](https://github.com/snowdreamtech/openssh/commit/746e55a679d633f4a22c8d38a129071e41cfed82))
+* **docker:** enhance sshd_config regex robustness and add motd auto-refresh ([eeb5a5b](https://github.com/snowdreamtech/openssh/commit/eeb5a5bc8facfa4a85816c35fdb86022f6f575f5))
+* **docker:** ensure explicit permissions for client ssh keys generation ([f2b50df](https://github.com/snowdreamtech/openssh/commit/f2b50dfdc0f41dab96fc2734653a2c1a36c484c3))
+* **docker:** explicitly add executable permissions for motd script in alpine and rocky ([1bd73f2](https://github.com/snowdreamtech/openssh/commit/1bd73f21cc8b5b8336ed57498b47f2eb72de2628))
+* **docker:** remove redundant client ssh keys generation from entrypoint ([24c2b71](https://github.com/snowdreamtech/openssh/commit/24c2b71eef260edccfa2b35a855994361a0f95fd))

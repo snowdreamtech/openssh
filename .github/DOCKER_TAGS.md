@@ -1,22 +1,22 @@
 # Docker Image Tags Reference
 
-This document describes the Docker image tagging strategy for the base template project.
+This document describes the Docker image tagging strategy for the OpenSSH project.
 
 ## Tag Naming Convention
 
-All images use the format: `snowdreamtech/base:TAG`
+All images use the format: `snowdreamtech/openssh:TAG`
 
 Where `TAG` follows these patterns:
 
-- **Variant-specific tags**: `TAG-variant` (e.g., `nightly-alpine`, `3.23.4-alpine`)
-- **Default tags** (Debian only): `TAG` (e.g., `nightly`, `latest`, `13.4.0`)
+- **Variant-specific tags**: `TAG-variant` (e.g., `nightly-alpine`, `10.3.2-alpine`)
+- **Default tags** (Debian only): `TAG` (e.g., `nightly`, `latest`, `10.0.2`)
 
 ## Supported Registries
 
-All tags are pushed to three registries:
+All tags are pushed to two registries:
 
-- **DockerHub**: `snowdreamtech/base:TAG`
-- **GitHub Container Registry**: `ghcr.io/snowdreamtech/base:TAG`
+- **DockerHub**: `snowdreamtech/openssh:TAG`
+- **GitHub Container Registry**: `ghcr.io/snowdreamtech/openssh:TAG`
 
 ## Tag Scenarios
 
@@ -31,10 +31,10 @@ git push origin dev
 **Generated tags:**
 
 ```
-snowdreamtech/base:dev-alpine
-snowdreamtech/base:dev-debian
-snowdreamtech/base:dev              # ← Debian (default)
-snowdreamtech/base:dev-rocky
+snowdreamtech/openssh:dev-alpine
+snowdreamtech/openssh:dev-debian
+snowdreamtech/openssh:dev              # ← Debian (default)
+snowdreamtech/openssh:dev-rocky
 ```
 
 #### Push to `main` branch
@@ -46,14 +46,14 @@ git push origin main
 **Generated tags:**
 
 ```
-snowdreamtech/base:main-alpine
-snowdreamtech/base:latest-alpine
-snowdreamtech/base:main-debian
-snowdreamtech/base:latest-debian
-snowdreamtech/base:main             # ← Debian (default)
-snowdreamtech/base:latest           # ← Debian (default)
-snowdreamtech/base:main-rocky
-snowdreamtech/base:latest-rocky
+snowdreamtech/openssh:main-alpine
+snowdreamtech/openssh:latest-alpine
+snowdreamtech/openssh:main-debian
+snowdreamtech/openssh:latest-debian
+snowdreamtech/openssh:main             # ← Debian (default)
+snowdreamtech/openssh:latest           # ← Debian (default)
+snowdreamtech/openssh:main-rocky
+snowdreamtech/openssh:latest-rocky
 ```
 
 ---
@@ -63,45 +63,45 @@ snowdreamtech/base:latest-rocky
 #### Alpine Release
 
 ```bash
-git tag alpine-v3.23.4
-git push origin alpine-v3.23.4
+git tag alpine-v10.3.2
+git push origin alpine-v10.3.2
 ```
 
 **Generated tags:**
 
 ```
-snowdreamtech/base:3.23.4-alpine
-snowdreamtech/base:latest-alpine
+snowdreamtech/openssh:10.3.2-alpine
+snowdreamtech/openssh:latest-alpine
 ```
 
 #### Debian Release
 
 ```bash
-git tag debian-v13.4.0
-git push origin debian-v13.4.0
+git tag debian-v10.0.2
+git push origin debian-v10.0.2
 ```
 
 **Generated tags:**
 
 ```
-snowdreamtech/base:13.4.0-debian
-snowdreamtech/base:latest-debian
-snowdreamtech/base:13.4.0           # ← Debian (default)
-snowdreamtech/base:latest           # ← Debian (default)
+snowdreamtech/openssh:10.0.2-debian
+snowdreamtech/openssh:latest-debian
+snowdreamtech/openssh:10.0.2           # ← Debian (default)
+snowdreamtech/openssh:latest           # ← Debian (default)
 ```
 
 #### Rocky Release
 
 ```bash
-git tag rocky-v10.1.0
-git push origin rocky-v10.1.0
+git tag rocky-v9.9.3
+git push origin rocky-v9.9.3
 ```
 
 **Generated tags:**
 
 ```
-snowdreamtech/base:10.1.0-rocky
-snowdreamtech/base:latest-rocky
+snowdreamtech/openssh:9.9.3-rocky
+snowdreamtech/openssh:latest-rocky
 ```
 
 ---
@@ -114,18 +114,18 @@ snowdreamtech/base:latest-rocky
 
 ```
 # Alpine
-snowdreamtech/base:nightly-alpine
-snowdreamtech/base:20260427-alpine
+snowdreamtech/openssh:nightly-alpine
+snowdreamtech/openssh:20260427-alpine
 
 # Debian (with default tags)
-snowdreamtech/base:nightly-debian
-snowdreamtech/base:20260427-debian
-snowdreamtech/base:nightly          # ← Debian (default)
-snowdreamtech/base:20260427         # ← Debian (default)
+snowdreamtech/openssh:nightly-debian
+snowdreamtech/openssh:20260427-debian
+snowdreamtech/openssh:nightly          # ← Debian (default)
+snowdreamtech/openssh:20260427         # ← Debian (default)
 
 # Rocky
-snowdreamtech/base:nightly-rocky
-snowdreamtech/base:20260427-rocky
+snowdreamtech/openssh:nightly-rocky
+snowdreamtech/openssh:20260427-rocky
 ```
 
 ---
@@ -138,7 +138,7 @@ Tags are generated with the following priority (higher number = higher priority)
 |----------|------|--------------|---------|
 | 1000 | Nightly | `nightly`, `nightly-alpine` | Schedule |
 | 900 | Date | `20260427`, `20260427-alpine` | Schedule |
-| 800 | Version | `3.23.4-alpine`, `13.4.0` | Tag push |
+| 800 | Version | `10.3.2-alpine`, `10.0.2` | Tag push |
 | 600 | Branch | `dev-alpine`, `main-debian` | Branch push |
 | 200 | Latest | `latest`, `latest-alpine` | Main/Tag |
 
@@ -151,21 +151,21 @@ Debian is designated as the **default variant** (`is_latest: true`), which means
 ✅ **Debian gets BOTH suffixed AND unsuffixed tags:**
 
 ```
-snowdreamtech/base:nightly-debian   # Variant-specific
-snowdreamtech/base:nightly          # Default (no suffix)
+snowdreamtech/openssh:nightly-debian   # Variant-specific
+snowdreamtech/openssh:nightly          # Default (no suffix)
 
-snowdreamtech/base:13.4.0-debian    # Variant-specific
-snowdreamtech/base:13.4.0           # Default (no suffix)
+snowdreamtech/openssh:10.0.2-debian    # Variant-specific
+snowdreamtech/openssh:10.0.2           # Default (no suffix)
 
-snowdreamtech/base:latest-debian    # Variant-specific
-snowdreamtech/base:latest           # Default (no suffix)
+snowdreamtech/openssh:latest-debian    # Variant-specific
+snowdreamtech/openssh:latest           # Default (no suffix)
 ```
 
 ❌ **Alpine and Rocky get ONLY suffixed tags:**
 
 ```
-snowdreamtech/base:nightly-alpine   # Variant-specific only
-snowdreamtech/base:nightly-rocky    # Variant-specific only
+snowdreamtech/openssh:nightly-alpine   # Variant-specific only
+snowdreamtech/openssh:nightly-rocky    # Variant-specific only
 ```
 
 ---
@@ -175,49 +175,49 @@ snowdreamtech/base:nightly-rocky    # Variant-specific only
 ### Pull the latest Debian image (default)
 
 ```bash
-docker pull snowdreamtech/base:latest
+docker pull snowdreamtech/openssh:latest
 # or
-docker pull snowdreamtech/base:latest-debian
+docker pull snowdreamtech/openssh:latest-debian
 ```
 
 ### Pull the latest Alpine image
 
 ```bash
-docker pull snowdreamtech/base:latest-alpine
+docker pull snowdreamtech/openssh:latest-alpine
 ```
 
 ### Pull the latest Rocky image
 
 ```bash
-docker pull snowdreamtech/base:latest-rocky
+docker pull snowdreamtech/openssh:latest-rocky
 ```
 
 ### Pull a specific version
 
 ```bash
-# Alpine 3.23.4
-docker pull snowdreamtech/base:3.23.4-alpine
+# Alpine 10.3.2
+docker pull snowdreamtech/openssh:10.3.2-alpine
 
-# Debian 13.4.0 (two ways)
-docker pull snowdreamtech/base:13.4.0-debian
-docker pull snowdreamtech/base:13.4.0
+# Debian 10.0.2 (two ways)
+docker pull snowdreamtech/openssh:10.0.2-debian
+docker pull snowdreamtech/openssh:10.0.2
 
-# Rocky 10.1.0
-docker pull snowdreamtech/base:10.1.0-rocky
+# Rocky 9.9.3
+docker pull snowdreamtech/openssh:9.9.3-rocky
 ```
 
 ### Pull nightly builds
 
 ```bash
 # Alpine nightly
-docker pull snowdreamtech/base:nightly-alpine
+docker pull snowdreamtech/openssh:nightly-alpine
 
 # Debian nightly (two ways)
-docker pull snowdreamtech/base:nightly-debian
-docker pull snowdreamtech/base:nightly
+docker pull snowdreamtech/openssh:nightly-debian
+docker pull snowdreamtech/openssh:nightly
 
 # Rocky nightly
-docker pull snowdreamtech/base:nightly-rocky
+docker pull snowdreamtech/openssh:nightly-rocky
 ```
 
 ---
@@ -250,15 +250,15 @@ The workflow uses a matrix strategy with three variants:
 matrix:
   include:
     - variant: alpine
-      version: "3.23.4"
+      version: "10.3.2"
       is_latest: false
 
     - variant: debian
-      version: "13.4.0"
+      version: "10.0.2"
       is_latest: true    # ← Default variant
 
     - variant: rocky
-      version: "10.1.0"
+      version: "9.9.3"
       is_latest: false
 ```
 
@@ -272,8 +272,8 @@ The key configuration that enables this tagging strategy:
 
 ```yaml
 images: |
-  name=snowdreamtech/base,enable=true
-  name=ghcr.io/snowdreamtech/base,enable=true
+  name=snowdreamtech/openssh,enable=true
+  name=ghcr.io/snowdreamtech/openssh,enable=true
 flavor: |
   latest=false
   prefix=
