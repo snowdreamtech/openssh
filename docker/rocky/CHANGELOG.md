@@ -14,13 +14,6 @@
 * release main ([a2cafdc](https://github.com/snowdreamtech/openssh/commit/a2cafdc012ed85559e0239e6333af767a878eff8))
 * **release:** deduplicate CHANGELOG headers ([ec1c2ef](https://github.com/snowdreamtech/openssh/commit/ec1c2ef80d3e6af152487494cd1727eaf502214b))
 
-## [9.9.3](https://github.com/snowdreamtech/openssh/compare/rocky-v9.9.2...rocky-v9.9.3) (2026-10-31)
-
-
-### 🐛 Bug Fixes
-
-* **rocky:** update openssh package version to 9.9p1-29.el10_2.rocky.0.1
-
 ## [9.9.2](https://github.com/snowdreamtech/openssh/compare/rocky-v9.9.1...rocky-v9.9.2) (2026-08-12)
 
 
